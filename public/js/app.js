@@ -13903,7 +13903,7 @@ window.Vue = __webpack_require__(36);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', __webpack_require__(39));
+Vue.component('notifications', __webpack_require__(39));
 
 var app = new Vue({
   el: '#app'
@@ -47206,7 +47206,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/js/components/ExampleComponent.vue"
+Component.options.__file = "resources/js/components/notifications/Notifications.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -47215,9 +47215,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-299e239e", Component.options)
+    hotAPI.createRecord("data-v-f936cf34", Component.options)
   } else {
-    hotAPI.reload("data-v-299e239e", Component.options)
+    hotAPI.reload("data-v-f936cf34", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -47357,12 +47357,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
-    }
+	created: function created() {
+		this.loadNotifications();
+	},
+
+
+	computed: {
+		notifications: function notifications() {
+			return this.notificationsItems;
+		}
+	},
+
+	data: function data() {
+		return {
+			notificationsItems: []
+		};
+	},
+
+
+	methods: {
+		loadNotifications: function loadNotifications() {
+			axios.get('/notifications').then(function (response) {
+				console.log(response);
+			});
+		}
+	}
 });
 
 /***/ }),
@@ -47373,30 +47394,54 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _c("li", { staticClass: "nav-item dropdown" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "dropdown-menu dropdown-menu-right",
+          attrs: { "aria-labelledby": "navbarDropdown" }
+        },
+        _vm._l(_vm.notifications, function(notification) {
+          return _c(
+            "a",
+            {
+              key: notification,
+              staticClass: "dropdown-item",
+              attrs: { href: "#" }
+            },
+            [_vm._v("\n\t\t\t\t" + _vm._s(notification) + "\n\t\t\t")]
+          )
+        })
+      )
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card card-default" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Example Component")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    I'm an example component.\n                "
-              )
-            ])
-          ])
-        ])
-      ])
-    ])
+    return _c(
+      "a",
+      {
+        staticClass: "nav-link dropdown-toggle",
+        attrs: {
+          id: "navbarDropdown",
+          href: "#",
+          role: "button",
+          "data-toggle": "dropdown",
+          "aria-haspopup": "true",
+          "aria-expanded": "false"
+        }
+      },
+      [
+        _c("i", { staticClass: "fas fa-bell" }),
+        _c("span", { staticClass: "caret" })
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -47404,7 +47449,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-299e239e", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-f936cf34", module.exports)
   }
 }
 
